@@ -1,0 +1,235 @@
+            int minFreq = heapVec[0].freq;
+            int oldestCounter = heapVec[0].tieBreaker; 
+            for ( auto& value : heapVec){
+                if(value.freq == minFreq){
+                    if(value.tieBreaker > oldestCounter){
+                        oldestCounter = value.tieBreaker;
+                    }
+                }
+            }
+
+
+/*
+int HashFunc(int key, int size)
+{
+    return key % size;
+}
+*/
+/*
+void swap( item a, item b){
+        std::string holder = heapVec[i/2].key;
+        int holdFreq = heapVec[i/2].freq;
+        int holdTie = heapVec[i/2].tieBreaker;
+        int holdPos = heapVec[i/2].hashPosition; 
+        heapVec[i/2].key = heapVec[i].key;
+        heapVec[i/2].freq = heapVec[i].freq;
+        heapVec[i/2].tieBreaker = heapVec[i].tieBreaker;
+        heapVec[i/2].hashPosition = heapVec[i].hashPosition;
+        heapVec[i].key = holder;
+        heapVec[i].freq = holdFreq;
+        heapVec[i].tieBreaker = holdTie;
+        heapVec[i].hashPosition = holdPos;    
+}
+*/
+
+
+
+same tieBreaker stradegy to break ties
+
+if there is a tie for the least freq, the newest comes first. 
+
+
+            /*
+            while( hashVec[tablePosition].keyHash != parKey && hashVec[tablePosition].info != USING){
+                std::cout << "looping thru hash table \n";
+                tablePosition = (counter * counter + tablePosition);
+                counter++;
+                    if(hashVec[tablePosition].keyHash == parKey){
+                    std::cout << "found \n";
+                    hashVec[tablePosition].itemPtr->setFreq( (hashVec[tablePosition].itemPtr->getFreq() ) + 1 ) ;
+                    std::cout << "UPDATED FREQ \n";
+                    //int heapIndex = hashVec.at(tablePosition).itemPtr;
+                    percolateDown(hashVec[tablePosition].itemPtr->heapIndex);
+                    found == true;
+                    break;
+                }
+            }
+            */
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+                        while (hashVec[tablePosition].keyHash != parKey && tablePosition < hashVec.size()){
+                std::cout << "probing \n";
+                tablePosition = (tablePosition + 2 * ++counter);
+                std::cout << "tb is " << tablePosition << std::endl;
+                if (hashVec[tablePosition].keyHash == parKey){
+                std::cout << "tb " << tablePosition << std::endl;
+                std::cout << "found \n";
+                std::cout << "before update " << heapVec[tablePosition].key << " " << heapVec[tablePosition].freq << " " << 
+                heapVec[tablePosition].tieBreaker << " "<< heapVec[tablePosition].hashPosition << std::endl;
+                hashVec[tablePosition].itemPtr->setFreq( (hashVec[tablePosition].itemPtr->getFreq() ) + 1 ) ;
+                std::cout << "after update " << heapVec[tablePosition].key << " " << heapVec[tablePosition].freq << " " << 
+                heapVec[tablePosition].tieBreaker << " "<< heapVec[tablePosition].hashPosition << std::endl;                
+                percolateDown(hashVec[tablePosition].itemPtr->heapIndex);
+                found = true; 
+                }
+            }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                    
+        // Swap PD
+        /*
+        std::string holder = heapVec[left].key;
+        int holdFreq = heapVec[left].freq;
+        int holdTie = heapVec[left].tieBreaker;
+        int holdPos = heapVec[left].hashPosition;
+        itemHash * holdPtr = heapVec[left].hashPtr; 
+        heapVec[left].key = heapVec[i].key;
+        heapVec[left].freq = heapVec[i].freq;
+        heapVec[left].tieBreaker = heapVec[i].tieBreaker;
+        heapVec[left].hashPosition = heapVec[i].hashPosition;
+        heapVec[left].hashPtr = heapVec[i].hashPtr;
+        heapVec[i].key = holder;
+        heapVec[i].freq = holdFreq;
+        heapVec[i].tieBreaker = holdTie;
+        heapVec[i].hashPosition = holdPos;
+        heapVec[i].hashPtr = holdPtr;        
+        */
+
+
+                    //Swaping should write a function PU
+            /*
+            std::string holder = heapVec[i/2].key;
+            int holdFreq = heapVec[i/2].freq;
+            int holdTie = heapVec[i/2].tieBreaker;
+            int holdPos = heapVec[i/2].hashPosition; 
+            itemHash * holdPtr = heapVec[i/2].hashPtr; 
+
+            heapVec[i/2].key = heapVec[i].key;
+            heapVec[i/2].freq = heapVec[i].freq;
+            heapVec[i/2].tieBreaker = heapVec[i].tieBreaker;
+            heapVec[i/2].hashPosition = heapVec[i].hashPosition;
+            heapVec[i/2].hashPtr = heapVec[i].hashPtr;
+
+            heapVec[i].key = holder;
+            heapVec[i].freq = holdFreq;
+            heapVec[i].tieBreaker = holdTie;
+            heapVec[i].hashPosition = holdPos;
+            heapVec[i].hashPtr = holdPtr;
+            */
+            //swap
+
+
+            //if collision in not found and heap not full 
+            /* 
+            if(hashVec[tablePosition].info == USING && counter < hashVec.size()){
+                tablePosition = (tablePosition + 2 * ++counter);
+                holdTbPos = tablePosition; 
+            }
+            */
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            while(hashVec[tablePosition].info != EMPTY && hashVec[tablePosition].keyHash != parKey){
+            //std::cout << "in while \n";
+            
+            /*
+            if( counter > ( hashVec.size()/2 ) ){
+                std::cout << "breaking in search \n";
+                break;
+            }
+            */
+            //using or deleted
+            //if found and active or using then update 
+            tablePosition = tablePosition + 2 * ++counter; 
+            if(tablePosition >= hashVec.size() ){
+                tablePosition = tablePosition - hashVec.size(); 
+            }
+            if(hashVec[tablePosition].keyHash == parKey && hashVec[tablePosition].info == USING ){
+                //found and checking if using 
+                std::cout << "found \n";
+                hashVec[tablePosition].itemPtr->setFreq( hashVec[tablePosition].itemPtr->getFreq()  + 1 ) ;
+                
+                std::cout << "b4 PD " << hashVec[tablePosition].keyHash << " " << hashVec[tablePosition].itemPtr->freq << " " << " \n";
+                std::cout << "pd index " << hashVec[tablePosition].itemPtr->heapIndex << std::endl;
+                percolateDown(hashVec[tablePosition].itemPtr->heapIndex);
+
+                std::cout << "aft PD " << hashVec[tablePosition].keyHash << " " << hashVec[tablePosition].itemPtr->freq << " " << " \n";
+                
+                found = true;
+                
+                break;
+            }
+            else {
+                if (counter < hashVec.size()){ 
+                    std::cout << "in while \n";  
+                    tablePosition = tablePosition + 2 * ++counter; 
+                }
+            }            
+        }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+            if( hashVec[tablePosition].info == USING && hashVec[tablePosition].keyHash == parKey){
+                    std::cout << "8 \n";
+                hashVec[tablePosition].itemPtr->setFreq( hashVec[tablePosition].itemPtr->getFreq()  + 1 ) ;
+                percolateDown(hashVec[tablePosition].itemPtr->heapIndex);
+                found = true;
+                break;
+                std::cout << "9 \n";
+            }
+
+            //////////////////////////////////////////////////////////////
+
+                    while(found == false and counter < tableSize/2){
+
+            //std::cout << "1 \n";
+
+            // if it is using or deleted and i haven't found the key then keep searching 
+            if(hashVec[tablePosition].info != USING && hashVec[tablePosition].keyHash != parKey ){
+                //std::cout << "2 \n";
+                //go to the next position
+                while(counter < tableSize){
+                    //std::cout << "3 \n";
+                    ++counter;
+                    tablePosition = (tablePosition +  counter * counter) % tableSize;
+                    //std::cout << "4 \n";
+                    // check key and tag 
+                    // if match then break 
+                    if(hashVec[tablePosition].info == USING && hashVec[tablePosition].keyHash == parKey ){
+                        //std::cout << "5 \n";
+                        hashVec[tablePosition].itemPtr->setFreq( hashVec[tablePosition].itemPtr->getFreq()  + 1 ) ;
+                        percolateDown(hashVec[tablePosition].itemPtr->heapIndex);
+                        found = true;
+                        break;
+                    }
+                    
+
+                //std::cout << "6 \n";
+                }
+            //std::cout << "7 \n";
+            }
+
+            // if it is empty, then keep probing then till you find using or deleted.
+
+            else if (hashVec[tablePosition].info == EMPTY) {
+                while ( counter < tableSize ){
+                    ++counter; 
+                    tablePosition = (tablePosition +  counter * counter) % tableSize;
+                    if(hashVec[tablePosition].info == USING && hashVec[tablePosition].keyHash == parKey ){
+                        //std::cout << "5 \n";
+                        hashVec[tablePosition].itemPtr->setFreq( hashVec[tablePosition].itemPtr->getFreq()  + 1 ) ;
+                        percolateDown(hashVec[tablePosition].itemPtr->heapIndex);
+                        found = true;
+                        break;
+                    }
+                }
+
+            }
+
+            //std::cout << "10 \n";
+        }
+        //std::cout << "11 \n";
+    }
